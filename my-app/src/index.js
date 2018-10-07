@@ -69,6 +69,7 @@ function Square(props) {
         }]),
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
+
       });
     }
 
@@ -83,7 +84,7 @@ function Square(props) {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
-  
+      
       const moves = history.map((step, move) => {
         const desc = move ?
           'Go to move #' + move :
@@ -96,11 +97,17 @@ function Square(props) {
       });
 
       let status;
-      if (winner) {
-        status = 'Winner: ' + winner;
-      } else {
-        status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      if (!winner && this.state.history.length === 10){
+        status = 'Nobody wins';
+      } else{
+        if (winner) {
+          status = 'Winner: ' + winner;
+        } else {
+          status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        }
       }
+     
+
       return (
         <div className="game">
           <div className="game-board">
